@@ -12,7 +12,7 @@ steps:
       - "push"
       - "gcr.io/project-funky-flex/stedi:latest"
 
-  #This step deploys the dev application in kubernettes
+  # This step deploys the dev application in kubernettes
   - name: 'gcr.io/cloud-builders/gke-deploy'
     id: Deploy
     args: 
