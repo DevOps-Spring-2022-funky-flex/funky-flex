@@ -1,21 +1,19 @@
-#© 2021 Sean Murdock
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stedi
+  name: stedi-prod
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: stedi
+      app: stedi-prod
   template:
     metadata:
       labels:
-        app: stedi
+        app: stedi-prod
     spec:
       containers:
-        - name: stedi
+        - name: stedi-prod
           image: gcr.io/project-funky-flex/stedi:latest
           env:
           - name: REDIS_HOST
@@ -66,12 +64,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: stedi
+  name: stedi-prod
 spec:
   selector:
-    app: stedi
+    app: stedi-prod
   type: LoadBalancer
   ports:
   - port: 80
-    targetPort: 3000        
-
+    targetPort: 3000
