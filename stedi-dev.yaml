@@ -39,8 +39,6 @@ spec:
               #   key: twilio_token
           - name: TWILIO_PHONE
             value: "+17146778438"
-          command: ["npm"]
-          args: ["run", "start"]
           ports:
             - containerPort: 4567
           resources:
