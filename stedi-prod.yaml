@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stedi-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stedi-prod
+  template:
+    metadata:
+      labels:
+        app: stedi-prod
+    spec:
+      containers:
+        - name: stedi-prod
+          image: gcr.io/project-funky-flex/stedi:latest
+          env:
+          - name: REDIS_HOST
+            value: "redis-stedi-dev"
+          - name: REDIS_PORT
+            value: "6379"
+          - name: REDIS_DB
+            value: "0"
+          - name: KAFKA_BROKER
+            value: "localhost:9092"
+          - name: TWILIO_ACCOUNT_SID
+            value: "AC76c2d08cc49098b7cd4f669656bbdb44"
+            # valueFrom:
+              # secretKeyRef:
+                # name: twilio-dev
+                # key: twilio_account_sid
+          - name: TWILIO_AUTH_TOKEN
+            value: "7fc613e3571bcbff53ad89bb1069e0bc"
+              # secretKeyRef:
+              #   name: twilio-dev
+              #   key: twilio_token
+          - name: TWILIO_PHONE
+            value: "+17146778438"
+          command: ["npm"]
+          args: ["run", "start"]
+          ports:
+            - containerPort: 4567
+          resources:
+            limits:
+              cpu: ".2"
+              memory: "500Mi"
+            requests:
+              cpu: ".2"
+              memory: "250Mi"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 4567
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 4567
+            initialDelaySeconds: 3
+            periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stedi-prod
+spec:
+  selector:
+    app: stedi-prod
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 4567
