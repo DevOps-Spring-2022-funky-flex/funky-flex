@@ -2,8 +2,8 @@ import {login} from '../utils/login.js';
 
 it ('should get login token', async ()=>{
     const loginRequest = {
-        userName:"funky@yahoo.com",
-        password: '123456',
+        userName:"buha@yahoo.com",
+        password: 'Longman2@',
     }
     await login(loginRequest);
 })
