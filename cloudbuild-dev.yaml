@@ -25,9 +25,9 @@ steps:
 
 
   - name: "gcr.io/cloud-builders/docker"
-    id: run
+    id: test
     args:
       - "run"
-      - "gcr.io/project-funky-flex/stedi:latest"
+      - "gcr.io/project-funky-flex/stedi-chikaberry"
 
 
