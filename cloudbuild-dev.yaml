@@ -30,8 +30,7 @@ steps:
       - "run"
       - "gcr.io/project-funky-flex/stedi-chikaberry"
 
-
-   - name: 'gcr.io/cloud-builders/gcloud'
+  - name: 'gcr.io/cloud-builders/gcloud'
   id: Deploy to Production
   args:
   - 'beta'
